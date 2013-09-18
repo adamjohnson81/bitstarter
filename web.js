@@ -2,8 +2,8 @@ var express = require('express');
 var app = express();
 var fs = require('fs');
 
-var test = fs.readFileSync('./test.txt', 'utf-8');
-response.send (test);
+//var test = fs.readFileSync('./test.txt', 'utf-8');
+//response.send (test);
 
 
 
