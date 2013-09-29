@@ -24,13 +24,27 @@ References:
 
   */
 
- var fs =require('fs');
+var fs =require('fs');
 var program = require('commander');
 var cheerio = require('cheerio');
 var HTMLFILE_DEFAULT = "index.html";
 var CHECKSFILE_DEFAULT = "checks.json";
+var url = process.argv;
+var rest = require('restler');
 
-var assertFileExists = function(inFile) {
+var sys = require('util'),
+    rest = require('./restler');
+
+rest.get('url').on('complete', function(result) {
+  if (result instanceof Error) {
+    sys.puts('Error: ' + result.message);
+    this.retry(5000); // try again after 5 sec
+  } else {
+    sys.puts(result);
+  }
+});
+
+var assertFileExists = function(infile) {
 	var instr = infile.toString();
 	if(!fs.existsSync(instr)) {
 		console.log("%s does not exist. Exiting.", instr);
